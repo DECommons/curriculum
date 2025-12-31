@@ -1,14 +1,31 @@
-# Data files (Don't commit 50GB files!)
+# --- System & IDE ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- Python & Virtual Env ---
+__pycache__/
+*.py[cod]
+.venv/
+env/
+venv/
+*.egg-info/
+
+# --- Jupyter Lab ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*.log
+
+# --- Data Engineering Lab (Massive Files) ---
+# We track the code to generate data, never the data itself.
 data/*.parquet
 data/*.csv
 data/*.db
+pg_data/            # Postgres persistent volume mapping
 
-# Jupyter Checkpoints
-.ipynb_checkpoints/
-*/.ipynb_checkpoints/
+# --- MkDocs (The Textbook) ---
+site/               # The generated static HTML folder
+.cache/             # MkDocs cache
 
-# Environment Secrets
+# --- Environment Secrets ---
 .env
-
-# Docker Volumes (if mapped locally)
-pg_data/

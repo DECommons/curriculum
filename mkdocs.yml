@@ -1,0 +1,63 @@
+site_name: Open Data Engineering Academy
+site_url: https://yourusername.github.io/data-engineering-bootcamp/
+repo_url: https://github.com/mckenzie-andrew/odea
+repo_name: GitHub
+
+theme:
+  name: material
+  logo: assets/odea.png
+  favicon: material/database
+  features:
+    - navigation.tabs           # Top-level tabs for major phases
+    - navigation.sections       # Expandable sidebar sections
+    - navigation.top            # "Back to top" button
+    - toc.integrate             # Table of contents inside the sidebar (cleaner)
+    - content.code.copy         # Copy button on code blocks
+    - content.tabs.link         # link tabs with same content
+  palette: 
+    # System preference default, but switchable
+    - scheme: default
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to Dark Mode
+    - scheme: slate
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to Light Mode
+
+# Extensions allow for the "Engineer" features like callouts and diagrams
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:     # Necessary for Mermaid Diagrams
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:          # Enables the Side-by-Side Code tabs
+      alternate_style: true 
+  - admonition                # Warning/Info blocks
+  - pymdownx.details          # Collapsible blocks
+  - pymdownx.superfences
+  - attr_list
+
+nav:
+  - Home: index.md
+  - "Phase 1: Foundations":
+    - "01: Syntax & Select": phase_1/01_syntax.md
+    - "02: Filtering & Logic": phase_1/02_filtering.md
+  - "Phase 2: Relational Logic":
+    - "01: Joins & Keys": phase_2/01_joins.md
+  - "Phase 3: Internals":
+    - "Row vs Column Store": phase_3/01_storage.md
+
+extra_css:
+  - stylesheets/extra.css
