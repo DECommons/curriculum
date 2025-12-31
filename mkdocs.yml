@@ -51,9 +51,9 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - "SQL and Internals ":
-    - "00: Welcome": sql_and_internals/00_table_of_contents.md
-    - "02: Filtering & Logic": phase_1/02_filtering.md
+  - "SQL for Data Engineers Part I":
+    - "00: Welcome": sql_for_data_engineers_part_one/00_table_of_contents.md
+    - "01: Hello, Data": sql_for_data_engineers_part_one/01_hello_data.md
 
 extra_css:
   - stylesheets/extra.css
