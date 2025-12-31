@@ -1,15 +1,9 @@
-# Data Engineering Bootcamp: Zero to Hero
+# Open Data Engineering Academy
 
 ## Setup
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 2. Clone this repository.
-3. Copy the environment file:
-
-```bash
-cp .env.example .env
-```
-
-4. Start the lab.
+3. Start the lab.
 ```bash
 docker-compose up -d
 ```
