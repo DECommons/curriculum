@@ -50,9 +50,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - "SQL for Data Engineers Part I":
+  - "SQL for Data Engineers, I":
     - "0: Welcome": sql_for_data_engineers_part_one/0_table_of_contents.md
     - "1: Learn the Basics": sql_for_data_engineers_part_one/1_learn_the_basics.md
+    - "2: Basic SQL Syntax": sql_for_data_engineers_part_one/2_basic_sql_syntax.md
+    - "3: Data Definition Language (DDL)": sql_for_data_engineers_part_one/3_data_definition_language.md
 
 extra_css:
   - stylesheets/extra.css
