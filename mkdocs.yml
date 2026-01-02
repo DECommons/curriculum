@@ -58,6 +58,7 @@ nav:
     - "4: Data Manipulation Language (DML)": sql_for_data_engineers_part_one/4_data_manipulation_language.md
     - "5: Data Constraints": sql_for_data_engineers_part_one/5_data_constraints.md
     - "6: Aggregate Functions": sql_for_data_engineers_part_one/6_aggregate_functions.md
+    - "7: JOIN Queries": sql_for_data_engineers_part_one/7_join_queries.md
 
 
 extra_css:
