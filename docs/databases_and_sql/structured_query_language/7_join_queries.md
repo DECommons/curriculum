@@ -45,7 +45,7 @@ ON Heroes.hero_id = Quests.assigned_hero_id;
 
 We specify the first table in the `FROM` clause, "join" the second table, and then **crucially**, we provide the glue using the `ON` keyword. This tells the database exactly *how* these two concepts relate.
 
-![inner join](../assets/inner_join.svg)
+![inner join](./images/inner_join.svg)
 
 ### The Result
 
@@ -74,7 +74,7 @@ Here, `Heroes` is the "left" table because it appears first (to the left of the 
 
 ### Visualizing The LEFT JOIN
 
-![left join](../assets/left_join.svg)
+![left join](./images/left_join.svg)
 
 ### The Result
 
@@ -105,7 +105,7 @@ ON Heroes.hero_id = Quests.assigned_hero_id;
 
 ### Visualizing the Right Join
 
-![right join](../assets/right_join.svg)
+![right join](./images/right_join.svg)
 
 ### The Result
 
@@ -140,7 +140,7 @@ ON Heroes.hero_id = Quests.assigned_hero_id;
 
 ### Visualizing the FULL OUTER JOIN
 
-![full outer join](../assets/full_outer_join.svg)
+![full outer join](./images/full_outer_join.svg)
 
 ### The Result
 

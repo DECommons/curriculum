@@ -8,14 +8,15 @@ theme:
   logo: assets/odea.png
   favicon: material/database
   features:
-    - navigation.tabs           # Top-level tabs for major phases
-    - navigation.sections       # Expandable sidebar sections
-    - navigation.top            # "Back to top" button
-    - toc.integrate             # Table of contents inside the sidebar (cleaner)
-    - content.code.copy         # Copy button on code blocks
-    - content.tabs.link         # link tabs with same content
+    - navigation.tabs
+    #- navigation.sections
+    - navigation.indexes
+    - navigation.footer
+    - navigation.top
+    - toc.integrate
+    - content.code.copy
+    - content.tabs.link
   palette: 
-    # System preference default, but switchable
     - scheme: default
       primary: deep purple
       accent: purple
@@ -29,7 +30,6 @@ theme:
         icon: material/weather-sunny
         name: Switch to Light Mode
 
-# Extensions allow for the "Engineer" features like callouts and diagrams
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -37,28 +37,32 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences:     # Necessary for Mermaid Diagrams
+  - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed:          # Enables the Side-by-Side Code tabs
+  - pymdownx.tabbed:
       alternate_style: true 
-  - admonition                # Warning/Info blocks
-  - pymdownx.details          # Collapsible blocks
+  - admonition
+  - pymdownx.details
   - attr_list
 
 nav:
   - Home: index.md
-  - "SQL for Data Engineers, I":
-    - "0: Welcome": sql_for_data_engineers_part_one/0_table_of_contents.md
-    - "1: Learn the Basics": sql_for_data_engineers_part_one/1_learn_the_basics.md
-    - "2: Basic SQL Syntax": sql_for_data_engineers_part_one/2_basic_sql_syntax.md
-    - "3: Data Definition Language (DDL)": sql_for_data_engineers_part_one/3_data_definition_language.md
-    - "4: Data Manipulation Language (DML)": sql_for_data_engineers_part_one/4_data_manipulation_language.md
-    - "5: Data Constraints": sql_for_data_engineers_part_one/5_data_constraints.md
-    - "6: Aggregate Functions": sql_for_data_engineers_part_one/6_aggregate_functions.md
-    - "7: JOIN Queries": sql_for_data_engineers_part_one/7_join_queries.md
+  - Databases and SQL:
+    - databases_and_sql/index.md
+    - Structured Query Language:
+      - "0: Welcome": databases_and_sql/structured_query_language/0_table_of_contents.md
+      - "1: Learn the Basics": databases_and_sql/structured_query_language/1_learn_the_basics.md
+      - "2: Basic SQL Syntax": databases_and_sql/structured_query_language/2_basic_sql_syntax.md
+      - "3: Data Definition Language (DDL)": databases_and_sql/structured_query_language/3_data_definition_language.md
+      - "4: Data Manipulation Language (DML)": databases_and_sql/structured_query_language/4_data_manipulation_language.md
+      - "5: Data Constraints": databases_and_sql/structured_query_language/5_data_constraints.md
+      - "6: Aggregate Functions": databases_and_sql/structured_query_language/6_aggregate_functions.md
+      - "7: JOIN Queries": databases_and_sql/structured_query_language/7_join_queries.md
+    - Set Theory:
+      - "0: Welcome": databases_and_sql/set_theory/0_table_of_contents.md
 
 
 extra_css:
