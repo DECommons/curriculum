@@ -61,6 +61,7 @@ nav:
       - "5: Data Constraints": databases_and_sql/structured_query_language/5_data_constraints.md
       - "6: Aggregate Functions": databases_and_sql/structured_query_language/6_aggregate_functions.md
       - "7: JOIN Queries": databases_and_sql/structured_query_language/7_join_queries.md
+      - "8: Subqueries": databases_and_sql/structured_query_language/8_subqueries.md
     - Set Theory:
       - "0: Welcome": databases_and_sql/set_theory/0_table_of_contents.md
 
