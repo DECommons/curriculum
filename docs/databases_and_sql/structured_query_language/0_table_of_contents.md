@@ -102,6 +102,10 @@
 *Part V: Advanced*
 
 - **Chapter 12: Stored Procedures & Functions**
+    - 12.1 Procedural SQL
+    - 12.2 Stored Procedures
+    - 12.3 User-Defined Functions
+    - 12.4 Control-of-Flow Logic 
 - **Chapter 13: Advanced SQL**
     - 13.1 Window Functions
         - row_number 
