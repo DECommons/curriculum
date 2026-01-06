@@ -591,3 +591,191 @@ How does `SELECT DISTINCT first_name, last_name FROM users;` determine uniquenes
 </quiz>
 
 <!-- mkdocs-quiz results -->
+
+## Lab
+Please complete module 1's labs in the companion GitHub repository.
+
+## Lab Solutions
+
+!!! warning "Don't Cheat Yourself"
+
+    Before viewing any of the solutions below, please ensure you have given the challenge an honest try. The worst thing you can do to yourself while learning is to not "accept the struggle." The struggle is what cements the information. Discovering the answer through trial and error is the only way to truly learn.
+
+??? note "Challenge 1 Solution"
+
+    ```sql
+    SELECT *
+    FROM customers;
+    ```
+
+??? note "Challenge 2 Solution"
+
+    ```sql
+    SELECT
+        product_id,
+        product_category_name
+    FROM products;
+    ```
+
+??? note "Challenge 3 Solution"
+
+    ```sql
+    SELECT *
+    FROM order_items
+    LIMIT 100;
+    ```
+
+??? note "Challenge 4 Solution"
+
+    ```sql
+    SELECT DISTINCT order_status
+    FROm orders;
+    ```
+
+??? note "Challenge 5 Solution"
+
+    ```sql
+    SELECT DISTINCT product_category_name
+    FROM products;
+    ```
+
+??? note "Challenge 6 Solution"
+
+    ```sql
+    SELECT
+        seller_city,
+        seller_state
+    FROM sellers;
+    ```
+
+??? note "Challenge 7 Solution"
+
+    ```sql
+    SELECT DISTINCT
+        seller_city,
+        seller_state
+    FROM sellers;
+    ```
+
+??? note "Challenge 8 Solution"
+
+    ```sql
+    SELECT DISTINCT
+        seller_id,
+        seller_city,
+        seller_state
+    FROM sellers
+    LIMIT 20;
+    ```
+
+??? note "Challenge 9 Solution"
+
+    ```sql
+    -- Audit sampling
+    SELECT
+        order_id,
+        price
+    FROM order_items
+    LIMIT 10;
+    ```
+
+??? note "Challenge 10 Solution"
+
+    ```sql
+    SELECT
+        customer_id,
+        customer_unique_id,
+        customer_state
+    FROM customers
+    LIMIT 50;
+    ```
+
+??? note "Challenge 11 Solution"
+
+    ```sql
+    SELECT *
+    FROM products
+    LIMIT 15;
+    ```
+
+??? note "Challenge 12 Solution"
+
+    ```sql
+    SELECT
+        order_id,
+        shipping_limit_date
+    FROM order_items
+    LIMIT 5;
+    ```
+
+??? note "Challenge 13 Solution"
+
+    ```sql
+    SELECT DISTINCT customer_city
+    FROM customers;
+    ```
+
+??? note "Challenge 14 Solution"
+
+    ```sql
+    SELECT DISTINCT order_approved_at
+    FROM orders;
+    ```
+
+??? note "Challenge 15 Solution"
+
+    ```sql
+    SELECT
+        price,
+        freight_value
+    FROM order_items
+    LIMIT 50;
+    ```
+
+??? note "Challenge 16 Solution"
+
+    ```sql
+    SELECT
+        order_id,
+        order_purchase_timestamp,
+        order_delivered_customer_date
+    FROM orders
+    LIMIT 10;
+    ```
+
+??? note "Challenge 17 Solution"
+
+    ```sql
+    SELECT DISTINCT seller_zip_code_prefix
+    FROM sellers;
+    ```
+
+??? note "Challenge 18 Solution"
+
+    ```sql
+    SELECT
+        product_length_cm,
+        product_height_cm,
+        product_width_cm
+    FROM products
+    LIMIT 25;
+    ```
+
+??? note "Challenge 19 Solution"
+
+    ```sql
+    SELECT DISTINCT freight_value
+    FROM order_items;
+    ```
+
+??? note "Challenge 20 Solution"
+
+    ```sql
+    SELECT
+        order_id,
+        product_id,
+        seller_id,
+        price
+    FROM order_items
+    LIMIT 100;
+    ```
