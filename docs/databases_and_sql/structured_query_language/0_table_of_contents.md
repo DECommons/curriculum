@@ -26,7 +26,7 @@ Part II: Transforming and Aggregating Data
     - 3.4 Date and Time Functions (DATEADD, DATEDIFF, DATEPART)
     - 3.5 Data Type Conversion (Casting)
         - CAST()
-        - CONVERT() (if SQL Server specific) or :: syntax
+        - :: syntax
     - 3.6 Conditional Logic (CASE WHEN, COALESCE, NULLIF)
 - Chapter 4: Aggregation and Grouping
     - 4.1 Aggregate Functions (COUNT, SUM, AVG, MIN, MAX)

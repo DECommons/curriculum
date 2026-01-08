@@ -724,7 +724,7 @@ You successfully aliased a column in your `SELECT` clause (e.g., `SELECT price A
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete section 2's labs in the companion GitHub repository.
+Please complete module 2's labs in the companion GitHub repository.
 
 ## Lab Solutions
 

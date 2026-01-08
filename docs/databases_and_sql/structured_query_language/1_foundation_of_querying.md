@@ -593,7 +593,7 @@ How does `SELECT DISTINCT first_name, last_name FROM users;` determine uniquenes
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete section 1's labs in the companion GitHub repository.
+Please complete module 1's labs in the companion GitHub repository.
 
 ## Lab Solutions
 
