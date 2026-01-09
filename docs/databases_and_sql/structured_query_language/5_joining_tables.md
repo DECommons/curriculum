@@ -591,210 +591,267 @@ Please complete module 5's labs in the companion GitHub repository.
 
     ```sql
     SELECT
-        COUNT(*) AS total_orders
-    FROM orders;
+        order_id,
+        customer_state
+    FROM orders
+    INNER JOIN customers
+    ON orders.customer_id = customers.customer_id
+    LIMIT 5;
     ```
 
 ??? note "Challenge 2 Solution"
 
     ```sql
     SELECT
-        SUM(price) AS total_revenue
-    FROM order_items;
+        o.order_id,
+        c.customer_state
+    FROM orders AS o
+    INNER JOIN customers AS c
+    ON o.customer_id = c.customer_id
+    LIMIT 5;
     ```
 
 ??? note "Challenge 3 Solution"
 
     ```sql
     SELECT
-        AVG(freight_value) AS avg_freight
-    FROM order_items;
+        order_purchase_timestamp,
+        price
+    FROM orders
+    INNER JOIN order_items
+    ON orders.order_id = order_items.order_id
+    LIMIT 10;
     ```
 
 ??? note "Challenge 4 Solution"
 
     ```sql
     SELECT
-        MIN(product_weight_g) AS min_weight,
-        MAX(product_weight_g) AS max_weight
-    FROM products;
+        o.order_id,
+        p.product_id,
+        p.product_category_name
+    FROM order_items AS o
+    INNER JOIN products AS p
+    ON o.product_id = p.product_id
+    WHERE product_category_name = 'pet_shop';
     ```
 
 ??? note "Challenge 5 Solution"
 
     ```sql
     SELECT
-        COUNT(DISTINCT seller_city) AS unique_seller_cities
-    FROM sellers;
+        o.order_id,
+        s.seller_id,
+        s.seller_city,
+        s.seller_state
+    FROM order_items AS o
+    INNER JOIN sellers AS s
+    ON s.seller_id = o.seller_id;
     ```
 
 ??? note "Challenge 6 Solution"
 
     ```sql
     SELECT
-        COUNT(customer_id) AS total_customers,
-        customer_state
-    FROM customers
-    GROUP BY customer_state
-    ORDER BY total_customers DESC;
+        p.product_category_name,
+        o.order_id
+    FROM products AS p
+    LEFT JOIN order_items AS o
+    ON p.product_id = o.product_id
+    WHERE o.order_id IS NULL;
     ```
 
 ??? note "Challenge 7 Solution"
 
     ```sql
     SELECT
-        COUNT(order_id) AS total_orders,
-        order_status
-    FROM orders
-    GROUP BY order_status
-    ORDER BY order_status;
+        p.product_category_name,
+        o.price
+    FROM products AS p
+    RIGHT JOIN order_items AS o
+    ON p.product_id = o.product_id
+    LIMIT 10;
     ```
 
 ??? note "Challenge 8 Solution"
 
     ```sql
     SELECT
-        SUM(price) AS total_revenue,
-        seller_id
-    FROM order_items
-    GROUP BY seller_id
-    ORDER BY total_revenue DESC
-    LIMIT 10;
+        c.customer_city,
+        o.order_status,
+        oi.price
+    FROM customers AS c
+    JOIN orders AS O
+        ON c.customer_id = o.customer_id
+    JOIN order_items AS oi
+        ON o.order_id = oi.order_id;
     ```
 
 ??? note "Challenge 9 Solution"
 
     ```sql
     SELECT
-        AVG(product_length_cm) AS length,
-        AVG(product_height_cm) AS height,
-        AVG(product_width_cm) AS width,
-        product_category_name
-    FROM products
-    GROUP BY product_category_name;
+        SUM(oi.price) AS total_revenue,
+        c.customer_state
+    FROM customers AS c
+    JOIN orders AS o
+        ON c.customer_id = o.customer_id
+    JOIN order_items AS oi
+        ON o.order_id = oi.order_id
+    GROUP BY customer_state
+    ORDER BY total_revenue DESC;
     ```
 
 ??? note "Challenge 10 Solution"
 
     ```sql
     SELECT
-        COUNT(order_id) AS total_orders,
-        CAST(order_purchase_timestamp AS DATE) AS purchase_date
-    FROM orders
-    GROUP BY purchase_date
-    ORDER BY purchase_date DESC;
+        o.order_id,
+        o.order_delivered_carrier_date,
+        oi.shipping_limit_date
+    FROM orders AS o
+    JOIN order_items AS oi
+    ON o.order_id = oi.order_id
+    WHERE o.order_delivered_carrier_date > oi.shipping_limit_date;
     ```
 
 ??? note "Challenge 11 Solution"
 
     ```sql
     SELECT
-        seller_id,
-        COUNT(*) AS items_sold
-    FROM order_items
-    GROUP BY seller_id
-    HAVING COUNT(*) > 50;
+        s.seller_state,
+        AVG(oi.freight_value) AS avg_freight
+    FROM sellers AS s
+    JOIN order_items AS oi
+    ON s.seller_Id = oi.seller_id
+    GROUP BY s.seller_state
+    ORDER BY s.seller_state ASC;
     ```
 
 ??? note "Challenge 12 Solution"
 
     ```sql
     SELECT
-        SUM(price) AS total_price,
-        order_id
-    FROM order_items
-    GROUP BY order_id
-    HAVING SUM(price) > 500.00;
+        p.product_id,
+        oi.price
+    FROM products p
+    JOIN order_items oi
+        ON p.product_id = oi.product_id
+    WHERE
+        p.product_category_name = 'telephony'
+        AND oi.price > 500;
     ```
 
 ??? note "Challenge 13 Solution"
 
     ```sql
     SELECT
-        seller_city,
-        COUNT(seller_id) AS total_sellers
-    FROM sellers
-    GROUP BY seller_city
-    HAVING COUNT(seller_id) >= 10
-    ORDER BY total_sellers;
+        o.order_id,
+        s.seller_city
+    FROm customers AS c
+    JOIN orders AS o
+        ON c.customer_id = o.customer_id
+    JOIN order_items AS oi
+        ON o.order_id = oi.order_id
+    JOIN sellers AS s
+        ON oi.seller_id = s.seller_id
+    WHERE c.customer_city = s.seller_city;
     ```
 
 ??? note "Challenge 14 Solution"
 
     ```sql
     SELECT
-        product_category_name,
-        AVG(product_weight_g) AS avg_weight
+        DISTINCT product_category_name, customer_state
     FROM products
-    GROUP BY product_category_name
-    HAVING AVG(product_weight_g) > 2000;
+    CROSS JOIN customers
+    LIMIT 20;
     ```
 
 ??? note "Challenge 15 Solution"
 
     ```sql
     SELECT
-        order_id,
-        COUNT(*) AS item_count
-    FROM order_items
-    GROUP BY order_id
-    HAVING COUNT(*) > 5;
+        s1.seller_city,
+        s1.seller_id AS seller_a,
+        s2.seller_id AS seller_b
+    FROM sellers s1
+    JOIN sellers s2
+        ON s1.seller_city = s2.seller_city
+        AND s1.seller_id != s2.seller_id
+    LIMIT 10;
     ```
 
 ??? note "Challenge 16 Solution"
 
     ```sql
     SELECT
-        COUNT(*) AS total_sellers,
-        seller_city
-    FROM sellers
-    WHERE seller_state = 'SP'
-    GROUP BY seller_city
-    HAVING COUNT(seller_id) > 5;
+        oi.order_id,
+        p.product_category_name,
+        COUNT(*) AS order_count
+    FROM order_items AS oi
+    JOIN products AS p
+        ON oi.product_id = p.product_id
+    GROUP BY order_id, product_category_name
+    ORDER BY order_count DESC;
     ```
 
 ??? note "Challenge 17 Solution"
 
     ```sql
     SELECT
-        COUNT(*) AS total_products,
-        product_category_name
-    FROM products
-    WHERE product_category_name IS NOT NULL
-    GROUP BY product_category_name;
+        p.product_category_name,
+        s.seller_city
+    FROM products AS p
+    FULL OUTER JOIN sellers AS s
+        ON p.product_category_name = s.seller_city
+    LIMIT 10;
     ```
 
 ??? note "Challenge 18 Solution"
 
     ```sql
     SELECT
-        SUM(price) AS total_price,
-        order_id
-    FROM order_items
-    WHERE EXTRACT(YEAR FROM shipping_limit_date) = 2018
-    GROUP BY order_id;
+        s.seller_id,
+        AVG(p.product_weight_g) AS avg_heavy_weight
+    FROM sellers AS s
+    JOIN order_items AS oi
+        ON s.seller_id = oi.seller_id
+    JOIN products AS p
+        ON oi.product_id = p.product_id
+    WHERE p.product_weight_g > 10000
+    GROUP BY s.seller_id;
     ```
 
 ??? note "Challenge 19 Solution"
 
     ```sql
     SELECT
-        AVG(price) AS avg_price,
-        order_id
-    FROM order_items
-    GROUP BY order_id
-    HAVING AVG(price) > 100;
+        p.product_category_name
+    FROm products AS p
+    LEFT JOIN order_items AS oi
+        ON oi.product_id = p.product_id
+    GROUP By p.product_category_name
+    HAVING COUNT(oi.order_id) = 2;
     ```
 
 ??? note "Challenge 20 Solution"
 
     ```sql
     SELECT
-        product_category_name,
-        AVG(product_weight_g) AS avg_weight
-    FROM products
-    WHERE product_category_name NOT LIKE 'a%'
-    GROUP BY product_category_name
-    HAVING AVG(product_weight_g) > 500
-    ORDER BY avg_weight DESC;
+        o.order_id,
+        c.customer_city,
+        p.product_category_name,
+        oi.price,
+        s.seller_city
+    FROM orders AS o
+    JOIN customers AS c
+        ON o.customer_id = c.customer_id
+    JOIN order_items AS oi
+        ON o.order_id = oi.order_id
+    JOIN products AS p
+        ON oi.product_id = p.product_id
+    JOIN sellers AS s
+        on oi.seller_id = s.seller_id
+    WHERE o.order_id = '00010242fe8c5a6d1ba2dd792cb16214';
     ```
