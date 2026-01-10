@@ -62,6 +62,7 @@ nav:
       - "4: Aggregation and Grouping": databases_and_sql/structured_query_language/4_aggregation_and_grouping.md
       - "5: Joining Tables": databases_and_sql/structured_query_language/5_joining_tables.md
       - "6: Set Operators": databases_and_sql/structured_query_language/6_set_operators.md
+      - "7: Subqueries and CTEs": databases_and_sql/structured_query_language/7_subqueries_and_ctes.md
     - Set Theory:
       - "0: Welcome": databases_and_sql/set_theory/0_table_of_contents.md
 

@@ -275,7 +275,7 @@ In set theory, a set is an *unordered* collection of distinct objects. A databas
 
 Usually, this means the order they were inserted on the hard drive, but you cannot rely on that. If you run a query today, you might get 1, 2, and 3. If the database administrator reorganizes the hard drive tonight, you might run the same query tomorrow and get products 50, 99, and 200.
 
-!!! warning "Non-Determinism"
+!!! info "Non-Determinism"
 
     Without an `ORDER BY` clause, `LIMIT` is **non-deterministic**. It is perfect for "getting a feel" for the data but terrible for specific reporting. Never assume the "first 10 rows" are the "newest 10 rows" or the "top 10 rows" unless you explicitly asked for sorting.
 
