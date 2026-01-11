@@ -812,7 +812,7 @@ Please complete module 11's labs in the companion GitHub repository.
     CREATE OR REPLACE PROCEDURE upsert_product_category(p_id VARCHAR, p_cat VARCHAR)
     AS $$
     BEGIN
-        PERFORM *
+        PERFORM 1
         FROM products
         WHERE product_id = p_id;
 
