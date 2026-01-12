@@ -533,7 +533,7 @@ Which special variable in PL/pgSQL is automatically set to TRUE or FALSE to indi
 - [ ] `EXISTS`
 - [ ] `STATUS`
 - [ ] `@@ROWCOUNT`
-- [ ] `FOUND`
+- [x] `FOUND`
 
 </quiz>
 

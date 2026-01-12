@@ -446,8 +446,8 @@ Which of the following describes the key difference between `DELETE` and `TRUNCA
 <quiz>
 Why is `TRUNCATE` generally much faster than `DELETE` when clearing a large table?
 - [ ] It does not update the transaction log at all.
-- [ ] It deallocates the data pages entirely rather than logging every individual row deletion.
-- [ ] IT ignores foreign key constraints.
+- [x] It deallocates the data pages entirely rather than logging every individual row deletion.
+- [ ] It ignores foreign key constraints.
 - [ ] It executes in parallel, whereas `DELETE` is single-threaded.
 
 </quiz>

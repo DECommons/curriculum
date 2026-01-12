@@ -67,6 +67,7 @@ nav:
       - "9: Creating Database Objects": databases_and_sql/structured_query_language/9_creating_database_objects.md
       - "10: Modifying Data": databases_and_sql/structured_query_language/10_modifying_data.md
       - "11: Programmable Objects": databases_and_sql/structured_query_language/11_programmable_objects.md
+      - "12: Performance Basics": databases_and_sql/structured_query_language/12_performance_basics.md
     - Set Theory:
       - "0: Welcome": databases_and_sql/set_theory/0_table_of_contents.md
 
