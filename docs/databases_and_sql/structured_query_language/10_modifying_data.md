@@ -235,7 +235,7 @@ One is a scalpel; the other is a sledgehammer.
 ### The Scalpel: `DELETE`
 The `DELETE` statement is used to remove specific rows from a table. It is precise, careful, and polite.
 
-**Syntax**
+#### Syntax
 
 ```sql
 DELETE FROM inventory
@@ -247,7 +247,7 @@ Let's look at the keywords:
 1. `DELETE FROM inventory`: "I want to remove rows from the inventory table."
 2. `WHERE`: "But only the ones that match this condition."
 
-**The Mechanism**
+#### The Mechanism
 
 When you run a `DELETE` statement, the database engine goes *row by row*. It looks at the row, checks if it matches your criteria, deletes it, and writes an entry in the transaction log saying, "I deleted row #1." Then it moves to the next row.
 
@@ -269,11 +269,13 @@ Occasionally, you would rather not delete specific items. You want to wipe the s
 
 For this, we use `TRUNCATE`.
 
+#### The Syntax
+
 ```sql
 TRUNCATE TABLE inventory;
 ```
 
-**The Mechanism**
+#### The Mechanism
 
 While `DELETE` goes row-by-row saying, "Delete this ... okay, log it. Delete this ... okay, log it," `TRUNCATE` is much more aggressive.
 
@@ -333,15 +335,15 @@ We need a guarantee that says, "Either BOTH of these things happen, or NEITHER o
 ### The Three Magic Keywords
 To control this manually, we use three specific keywords.
 
-**1. `BEGIN` (or `START TRANSACTION`)**
+#### 1. `BEGIN` (or `START TRANSACTION`)
 
 This disables auto-commit. It tells the database, "Everything I type from now on is provisional. Don't write it to the permanent storage ledger yet. Just keep it in a scratchpad."
 
-**2. `ROLLBACK`**
+#### 2. `ROLLBACK`
 
 This is the panic button. It tells the database, "I made a mistake. Crumple up the scratchpad and throw it away. Pretend I never typed anything since the last `BEGIN`."
 
-**3. `COMMIT`**
+#### 3. `COMMIT`
 
 This is the save button. It tells the database, "Everything looks good. Write these changes to the permanent ledger."
 
@@ -491,7 +493,7 @@ What happens if a power failure occurs in the middle of a transaction (after `BE
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 10's labs in the companion GitHub repository.
+Please complete module 10 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

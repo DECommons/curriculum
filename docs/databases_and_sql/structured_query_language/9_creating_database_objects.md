@@ -43,14 +43,14 @@ Think of a data type as the shape of the hole in a shape-sorting toy. If you dec
 
 Here are the essential types you need to know to build your first schema.
 
-**1. Integers (Whole Numbers)**
+#### 1. Integers (Whole Numbers)
 
 Used for counts, IDs, and everything that can't be split.
 
 - `INT` (or `INTEGER`): The standard whole number. It usually handles numbers up to roughly 2 billion.
 - `BIGINT`: For when 2 billion isn't enough (like Facebook user IDs or national debts).
 
-**2. Decimal (Fractional Numbers)**
+#### 2. Decimal (Fractional Numbers)
 
 Used for money, measurements, and scientific data.
 
@@ -62,7 +62,7 @@ Used for money, measurements, and scientific data.
 
     Never, ever store money as a `FLOAT`. `FLOAT` uses binary approximation (like how 1/3 is 0.33333...). If you do math on `FLOAT` money, pennies will vanish into the ether. Always use `DECIMAL` for currency.
 
-**3. Strings (Text)**
+#### 3. Strings (Text)
 
 Used for names, descriptions, and codes.
 
@@ -70,12 +70,12 @@ Used for names, descriptions, and codes.
 - `CHAR(n)`: "Fixed Character". If you store "Bob" in a `CHAR(50)`, the database pads the remaining 47 spots with invisible spaces. It always takes up the full space.
 - `TEXT`: A giant blob of text. Good for storing user comments or essays.
 
-**4. Dates and Times**
+#### 4. Dates and Times
 
 - `DATE`: Just the calendar day (YYYY-MM-DD). No time.
 - `TIMESTAMP` (or `DATETIME`): The calendar day plus the specific time (YYYY-MM-DD HH:MM:SS).
 
-**5. Logic**
+#### 5. Logic
 
 - `BOOLEAN`: Stores `TRUE` or `FALSE`. (In some old-school systems like SQL Server, this is called `BIT`, representing 0 or 1).
 
@@ -190,7 +190,7 @@ email VARCHAR(100) UNIQUE
 ### 4. Logic: `CHECK`
 This is where you get to write your own custom laws of physics. The `CHECK` constraint ensures that data adheres to a specific boolean condition. If the condition evaluates to `FALSE`, the data is rejected.
 
-**The Syntax**:
+#### The Syntax
 
 ```sql
 gold_balance DECIMAL(10, 2) CHECK (gold_balance >= 0)
@@ -326,7 +326,7 @@ ALTER TABLE table_name ...
 
 And is followed by the specific action you want to take.
 
-**1. Adding a Column**
+#### 1. Adding a Column
 
 The designers want to track if a wizard has a beard. We need a new boolean column.
 ```sql
@@ -336,7 +336,7 @@ ADD has_beard BOOLEAN;
 
 **What happens to the existing rows?** If you already had 1,000 wizards in the table, they suddenly get this new column. Since we didn't specify a default value, they will all have `NULL` in this slot. They are now "beard-agnostic" until we update them.
 
-**2. Removing a Column**
+#### 2. Removing a Column
 
 The designers realized `gold_balance` is buggy. They want it gone.
 
@@ -347,7 +347,7 @@ DROP COLUMN gold_balance;
 
 **What happens to the data?** The data in that specific column is sliced off and discarded. The rows (the wizards) remain, but their gold is gone forever.
 
-**3. Changing a Data Type**
+#### 3. Changing a Data Type
 This is the trickiest operation.
 
 Suppose we made `wizard_name` an `VARCHAR(50)`, but now we need to expand the column to `VARCHAR(100)`.
@@ -383,7 +383,7 @@ A temporary table works exactly like a regular table. You can `SELECT` from it, 
 
 The difference is its **lifespan** and its **visibility**.
 
-**1. Local Temporary Tables**
+#### 1. Local Temporary Tables
 
 This is your private notebook.
 
@@ -404,7 +404,7 @@ CREATE TEMPORARY TABLE temp_evil_wizards (
 
     In our labs, each lab starts with a cell to connect to the database. Until the container is closed/terminated, that session remains active.
 
-**2. Global Temporary Tables**
+#### 2. Global Temporary Tables
 
 This is a whiteboard in the hallway or meeting room.
 
@@ -423,7 +423,7 @@ This is where **views** come in.
 ### The "Saved Search"
 A view is a stored query that *pretends* to be a table. It has no data of its own. It is just a window looking at other tables.
 
-**The Syntax**:
+#### The Syntax
 
 ```sql
 CREATE VIEW view_active_wizards AS
@@ -453,15 +453,15 @@ When you run that simple `SELECT *`, the database secretly unpacks the saved que
 
 ### Why Use Views?
 
-**1. Simplicity (The "Facade")**
+#### 1. Simplicity (The "Facade")
 
 You can hide complex ugly joins behind a nice clean view. You can give your business users access to the view so they don't have to learn how to join tables. To them, it looks like one simple table.
 
-**2. Security**
+#### 2. Security
 
 Suppose `dim_wizards` has a column called `ssn` (social security number) or `salary`. You don't want the interns to see that. You can create a view that selects `name` and `email` but *excludes* `ssn`. Then, you give the interns permission to read the view but deny them permission to read the underlying table. The view acts as a security filter.
 
-**3. Consistency**
+#### 3. Consistency
 
 If you have a strict rule for what defines an "active wizard" (e.g., `level > 5 AND gold_dues = TRUE`), you don't want every analyst writing that `WHERE` clause differently. You define it once in a view, and everyone uses the "single source of truth".
 
@@ -584,7 +584,7 @@ Why is `VARCHAR(50)` generally preferred over `CHAR(50)` for storing names?
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 9's labs in the companion GitHub repository.
+Please complete module 9 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

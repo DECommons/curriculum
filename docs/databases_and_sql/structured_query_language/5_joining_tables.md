@@ -579,7 +579,7 @@ Which join type would you use to find a list of ALL users and ALL orders, ensuri
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 5's labs in the companion GitHub repository.
+Please complete module 5 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

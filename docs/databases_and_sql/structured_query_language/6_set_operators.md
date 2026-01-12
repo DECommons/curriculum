@@ -195,7 +195,7 @@ When stacking data with `UNION`, where does the final result set get its column 
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 6's labs in the companion GitHub repository.
+Please complete module 6 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

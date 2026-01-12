@@ -243,7 +243,7 @@ SELECT * FROM employees
 WHERE NOT department = 'Engineering';
 ```
 
-!!! info "Syntax note: Inequality Operators"
+!!! info "Syntax Note: Inequality Operators"
 
     This is functionally identical to using `<>` or `!=`.
 
@@ -252,7 +252,8 @@ WHERE NOT department = 'Engineering';
 ### Syntactic Sugar
 SQL provides a few shortcuts to make complex logic easier to write and read. We call this "syntactic sugar." It doesn't add new functionality; it just makes the code "sweeter".
 
-**1. The `IN` Operator**
+#### 1. The `IN` Operator
+
 If you want to filter for a list of values, chaining `OR`s gets tedious.
 
 - **The Hard Way**:
@@ -273,7 +274,8 @@ This is much cleaner. It checks if the value exists anywhere in the provided lis
 WHERE state NOT IN ('FL', 'TX', 'CA')
 ```
 
-**2. The `BETWEEN` Operator**
+#### 2. The `BETWEEN` Operator
+
 Similarly, checking for a range of numbers or dates can be verbose.
 
 - **The Hard Way**:
@@ -305,7 +307,7 @@ But humans are messy. Occasionally you don't know exactly what you are looking f
 
 You need a "fuzzy" search. In SQL, we use the `LIKE` operator with **wildcards**.
 
-**The Percent Wildcard (`%`)**
+#### The Percent Wildcard (`%`)
 
 The percent sign `%` represents **zero**, **one**, **or multiple characters**. It is a placeholder for "anything goes here."
 
@@ -335,7 +337,7 @@ WHERE product_name LIKE '%Pro%';
 
     Think of `%` like the asterisk `*` you use when searching for files on your computer (e.g., `*.jpg`). It tells the database, "I don't care what this part of the string looks like, as long as the rest matches."
 
-**The Underscore Wildcard (`_`)**
+#### The Underscore Wildcard (`_`)
 
 The percent sign is greedy; it matches infinite text. The underscore `_` is precise. It represents **exactly one single character**.
 
@@ -633,7 +635,7 @@ Imagine you update your query later to add an ID column at the start: `SELECT pr
 
     Always type the name of the column you are sorting by. It makes your code readable and resilient to change.
 
-## Module Quiz
+## Quiz
 
 <quiz>
 What is the primary function of the `WHERE` clause in an SQL query?
@@ -726,7 +728,7 @@ You successfully aliased a column in your `SELECT` clause (e.g., `SELECT price A
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 2's labs in the companion GitHub repository.
+Please complete module 2 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

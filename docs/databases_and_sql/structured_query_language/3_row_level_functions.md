@@ -742,7 +742,7 @@ Why is `CAST('abc' AS INTEGER)` likely to fail?
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 3's labs in the companion GitHub repository.
+Please complete module 3 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

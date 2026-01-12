@@ -502,7 +502,7 @@ SELECT name FROM users;
 SELECT raw_name FROM users;
 ```
 
-## Module Quiz
+## Quiz
 
 <quiz>
 In the query `SELECT name FROM customers;`, which operation does the database engine execute first?
@@ -593,7 +593,7 @@ How does `SELECT DISTINCT first_name, last_name FROM users;` determine uniquenes
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 1's labs in the companion GitHub repository.
+Please complete module 1 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

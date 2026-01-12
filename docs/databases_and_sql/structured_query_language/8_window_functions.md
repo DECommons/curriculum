@@ -349,7 +349,7 @@ Why would you use `DENSE_RANK()` instead of `RANK()`?
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 8's labs in the companion GitHub repository.
+Please complete module 8 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

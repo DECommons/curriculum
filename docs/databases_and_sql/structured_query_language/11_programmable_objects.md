@@ -46,7 +46,7 @@ A **variable** is a temporary placeholder, a labeled bucket, where we can store 
 
 In PL/pgSQL, variables are strictly typed (just like your table columns) and  must be declared before you use them.
 
-**Declaring and Assigning**
+#### Declaring and Assigning
 
 To put a value into a variable, we use the assignment operator `:=` (Note the colon! It's not just `=`).
 
@@ -236,7 +236,7 @@ Think of a stored object as a "named `DO` block" that accepts inputs.
 
 To save our logic, we literally wrap the `DO` block in a `CREATE` header.
 
-**1. The Function (The Calculator)**
+#### 1. The Function (The Calculator)
 
 For most of PostgreSQL's history, **functions** were the only game in town. If you wanted to run logic, you wrote a function.
 
@@ -277,6 +277,7 @@ SELECT calculate_tax(100.00, 0.05);
 ```
 
 **Level Up: Returning Entire Sets (`RETURN QUERY`)**
+
 So far, our functions have been scalar, they return a single number or string. But functions can also be **table generators**.
 
 Imagine you have a complex query that filters orders, joins three tables, and calculates tax. You want to reuse this logic, but with different date ranges. You essentially want a "view with parameters". That is why these are called **parameterized views**.
@@ -315,7 +316,7 @@ WHERE customer_name LIKE 'A$';
 
 This is incredibly powerful. It allows you to encapsulate complex reporting logic behind a simple function call.
 
-**2. The Procedure (The Task Master)**
+#### 2. The Procedure (The Task Master)
 
 Functions are great, but they have a fatal flaw: **they cannot manage transactions**.
 
@@ -444,6 +445,7 @@ sql_command := 'SELECT COUNT(*) FROM ' || 'inventory; DROP TABLE inventory; --';
 ```
 
 The resulting string becomes:
+
 1. `SELECT COUNT(*) FROM inventory;` (Runs fine).
 2. `DROP TABLE inventory;` (Destroys your table).
 3. `--` (Comments out anything else).
@@ -493,7 +495,7 @@ The database will say: `Relation does not exist.` You are safe.
 ### When to use Dynamic SQL?
 Dynamic SQL is complex, difficult to debug, and risky. You should only use it when static SQL physically cannot do the job.
 
-**Common Use Cases**::
+#### Common Use Cases
 
 1. **Administrative Tools**: Functions that perform maintenance on all tables in a schema.
 2. **Flexible Search**: Building a search query where the user can filter by any combination of 50 different criteria. You would rather not write one giant query with 50 `OR` statements; you build the `WHERE` clause dynamically based on what they selected.
@@ -594,7 +596,7 @@ In a `DO $$` block, where must you define your variables?
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 11's labs in the companion GitHub repository.
+Please complete module 11 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

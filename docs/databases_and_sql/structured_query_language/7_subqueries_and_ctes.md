@@ -586,7 +586,7 @@ A CTE defined in one query can be referenced in a completely separate query run 
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 7's labs in the companion GitHub repository.
+Please complete module 7 labs in the companion GitHub repository.
 
 ## Lab Solutions
 

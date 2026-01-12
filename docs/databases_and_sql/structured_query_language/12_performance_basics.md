@@ -82,8 +82,8 @@ Once you run this, the database quietly builds the tree in the background. You d
 ```mermaid
 flowchart LR
     A[SQL Query In] --> B{Optimizer}
-    B -- No Index Exists --> C[Full Table Scan (Slow)]
-    B -- Index Found! --> D[Index Scan (Fast)]
+    B -- No Index Exists --> C["Full Table Scan (Slow)"]
+    B -- "Index Found!" --> D["Index Scan (Fast)"]
     C --> E[Return Data]
     D --> E
 ```
@@ -95,7 +95,7 @@ I love the enthusiasm, but please, put down the keyboard.
 
 Indexes are not magic fairy dust; they are physical data structures that take up space on the hard drive. More importantly, they have a maintenance cost.
 
-**The Write Penalty**
+#### The Write Penalty
 
 Every time you `INSERT`, `UPDATE`, or `DELETE` a row in your table, the database has to do double the work:
 
@@ -113,7 +113,7 @@ If you have 10 indexes on a table, a single `INSERT` statement has to update the
 ### Clustered vs. Non-Clustered Indexes
 Depending on which database system you are using (SQL Server, MySQL, Postgres, or Oracle), you will hear these two terms constantly.
 
-**1. The Clustered Index (The Dictionary)**
+#### 1. The Clustered Index (The Dictionary)
 
 A dictionary *doesn't* have an index in the back. The dictionary is the index. The words are physically sorted on the pages in alphabetical order.
 
@@ -121,7 +121,7 @@ A dictionary *doesn't* have an index in the back. The dictionary is the index. T
 - You can usually only have **one** clustered index per table (because you can only physically sort the rows in one order).
 - In most databases, the **primary key** is automatically the clustered index.
 
-**2. The Non-Clustered Index (The Textbook)**
+#### 2. The Non-Clustered Index (The Textbook)
 
 This is the textbook analogy we used earlier. The data is in one place (the chapters), and the index is a separate list in the back that points to the data.
 
@@ -172,11 +172,11 @@ If you apply a function, do math, or manipulate the column in your `WHERE` claus
 ### The Three Common Crimes Against SARGability
 Let's look at the three most common ways beginners accidentally break their indexes and how to fix them.
 
-**Crime #1: Functions in the Column**
+#### Crime #1: Functions in the Column
 
 You want to find all orders placed in the year 2023. You have an index on `order_date`.
 
-- **The Non-SARGable Way (The "Crime")**:
+**The Non-SARGable Way (The "Crime")**:
 
 ```sql
 -- > Warning: This forces the DB to calculate YEAR()
@@ -188,7 +188,7 @@ WHERE YEAR(order_date) = 2023;
 
 *Why it fails*: The index is sorted by the full date (e.g., `2023-01-15 14:30:00`). It is not sorted by just the 'year'. To evaluate this, the database has to take every row, extract the year, and then compare it.
 
-- **The SARGable Way (The Fix)**:
+**The SARGable Way (The Fix)**:
 
 ```sql
 -- We leave the column `order_date` alone and change the logic
@@ -201,11 +201,11 @@ WHERE order_date >= '2023-01-01'
 
 *Why it works*: Now the database can go to the B-Tree, find the first entry for Jan 1st, 2023, find the last entry for Dec 31st, and grab everything in between.
 
-**Crime #2: Math on the Column**
+#### Crime #2: Math on the Column
 
 You want to find products where the price, after a 10% tax, is less than $100. You have an index on `price`.
 
-- **The Non-SARGable Way**:
+**The Non-SARGable Way**:
 
 ```sql
 -- We are doing math on the column side!
@@ -216,7 +216,7 @@ WHERE price * 1.10 < 100;
 
 *Why it fails*: The database stores the raw `price`. It doesn't know what `price * 1.10` is until it calculates it for every row.
 
-- **The SARGable Way**:
+**The SARGable Way**:
 
 ```sql
 -- Move the math to the order side of the operator.
@@ -228,11 +228,11 @@ WHERE price < 90.90;
 
 *Why it works*: We are comparing the raw column to a constant. The index can be used immediately.
 
-**Crime #3: The Leading Wildcard**
+#### Crime #3: The Leading Wildcard
 
 You are searching for text. You learned about the `LIKE` operator in module 2.
 
-- **The Non-SARGable Way**:
+**The Non-SARGable Way**:
 
 ```sql
 -- Finding names ending in 'son'
@@ -243,7 +243,7 @@ WHERE last_name LIKE '%son';
 
 *Why it fails*: The `%` at the *start* is the "Phone Book Task 2" problem. If the wildcard is at the beginning, we don't know the first letter, so we can't use an alphabetical sort order.
 
-- **The SARGable Way**:
+**The SARGable Way**:
 
 ```sql
 -- Finding names starting with 'And'
@@ -323,14 +323,14 @@ graph BT
     B2 --> B1
 ```
 
-**The Villain: "Seq Scan" (or "Table Scan")**
+#### The Villain: "Seq Scan" (or "Table Scan")
 
 If you see **Seq Scan** (Sequential Scan) or **Full Table Scan**, the database is confessing, *"I had to read the whole book."*
 
 - **When is this okay?** If your table is tiny (100 rows), a scan is actually faster than using an index.
 - **When is this bad?** If your table has 10 million rows, this is your performance bottleneck.
 
-**The Hero: "Index Seek" (or "Index Scan")**
+#### The Hero: "Index Seek" (or "Index Scan")
 
 If you see **Index Seek**, the database is bragging, "*I used the shortcut you gave me.*"
 
@@ -451,7 +451,7 @@ Which of the following is the SARGable equivalent of `WHERE FLOOR(discount) = 10
 <!-- mkdocs-quiz results -->
 
 ## Lab
-Please complete module 12's labs in the companion GitHub repository.
+Please complete module 12 labs in the companion GitHub repository.
 
 ## Lab Solutions
 
