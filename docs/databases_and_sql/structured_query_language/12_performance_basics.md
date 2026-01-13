@@ -121,7 +121,7 @@ flowchart LR
 ```
 
 ### The Cost of Speed (There is no Free Lunch)
-You might be thinking, *"Bob, this sounds wonderful. Why don't I just create an index for every single column in my table? Then everything will be fast!"*
+You might be thinking, *"This sounds wonderful. Why don't I just create an index for every single column in my table? Then everything will be fast!"*
 
 I love the enthusiasm, but please, put down the keyboard.
 

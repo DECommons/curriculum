@@ -56,11 +56,15 @@ In Set Theory, if I try to put the number `5` into a set that already contains a
 
 A Set contains only **distinct** elements.
 
-$$S = \{\text{Apple, Banana, Apple}\}$$
+$$
+S = \{\text{Apple, Banana, Apple}\}
+$$
 
 If you write the above on a math test, the professor will correct it to:
 
-$$S = \{\text{Apple, Banana}\}$$
+$$
+S = \{\text{Apple, Banana}\}
+$$
 
 !!! failure "Wait, doesn't SQL allow duplicates?"
 
@@ -71,12 +75,21 @@ $$S = \{\text{Apple, Banana}\}$$
 ### Notation and The Roster Method
 When we want to discuss sets on paper (or in documentation), we use curly braces. This is the **Roster Method**--literally listing out everyone on the team.
 
-If we have a set $D$ of digits, we write $$D = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$$
+If we have a set $D$ of digits, we write 
+
+$$
+D = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}
+$$
 
 We use the symbol $\in$ to denote "is an element of."
 
-$$7 \in D$$
-$$\text{Ham Sandwich } \notin D$$
+$$
+7 \in D
+$$
+
+$$
+\text{Ham Sandwich } \notin D
+$$
 
 In the diagram below, notice how the order is irrelevant and there are no duplicates inside the boundary.
 
@@ -99,14 +112,21 @@ You will care. You will care deeply at 3:00 AM when your sales report shows reve
 
 ## 1.2 Intension vs. Extension
 
-If I asked you to define the set of "My Favorite Fruits," you could easily just list them: $$F = \{\text{Apple, Mango, Durian}\}$$
+If I asked you to define the set of "My Favorite Fruits," you could easily just list them: 
+
+$$
+F = \{\text{Apple, Mango, Durian}\}
+$$
 
 Simple right? This is called defining a set by **extension**. You are extending the set by explicitly enumerating every single member. It's the "Roster Method" we talked about in the last section. It's checking names off a clipboard.
 
 But now, I have a harder task for you. I want you to define the set of **all even integers**.
 
 Go ahead. I'll wait. 
-$$E = \{2, 4, 6, 8, 10, \cdots\}$$
+
+$$
+E = \{2, 4, 6, 8, 10, \cdots\}
+$$
 
 You can keep writing until the heat death of the universe, but you will never finish defining that set by extension. You literally run out of time and space.
 
@@ -132,7 +152,9 @@ An intensional definition describes the **properties** that an object must satis
 
 In mathematics, we use **Set-Builder Notation** for this. It looks scary, but it's actually just a sentence written in shorthand.
 
-$$B = \{x \mid x \text{ is an integer and } x \text{ is divisible by } 2\}$$
+$$
+B = \{x \mid x \text{ is an integer and } x \text{ is divisible by } 2\}
+$$
 
 Let's dissect this syntax. It is the great-grandfather of the SQL `WHERE` clause.
 
@@ -195,7 +217,9 @@ The single biggest reason we need to obsess over the Universal Set is to handle 
 
 In Set Theory, the **complement** of a set $A$ (written as $A^{c}$ or $A^1$) consists of everything that is in the Universal Set $U$, but **not** in $A$.
 
-$$A^{c} = \{x \in U \mid x \notin A\}$$
+$$
+A^{c} = \{x \in U \mid x \notin A\}
+$$
 
 If you don't define $U$, you can't calculate $A^c$
 
@@ -342,4 +366,4 @@ Regarding the 'Rule of the Blender' (Unordered), which statement is true about S
 
 </quiz>
 
-<!-- mkdocs-quiz results-->
+<!-- mkdocs-quiz results -->
