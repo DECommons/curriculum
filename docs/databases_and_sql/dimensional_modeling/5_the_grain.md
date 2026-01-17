@@ -289,7 +289,7 @@ What is the 'Cardinality Trap'?
 - [ ] Storing too many columns in a fact table.
 - [ ] Using a float data type for currency values.
 - [x] Mistaking a high-cardinality attribute for a standard grouping dimension.
-- [ ] Creating a star schema with fewer than 5 points.
+- [ ] Creating a Star Schema with fewer than 5 points.
 
 </quiz>
 
@@ -323,7 +323,7 @@ What happens if you store Monthly Budget targets in the same table as Daily Sale
 <quiz>
 Why is 'allocating' a monthly budget into daily rows (e.g., dividing by 30) considered a bad practice in the 'blueprint'?
 - [ ] It makes the numbers too small to read.
-- [ ] It prevents the use of star schemas.
+- [ ] It prevents the use of Star Schemas.
 - [ ] It requires too much CPU power to calculate.
 - [x] It turns a fact into a guess.
 

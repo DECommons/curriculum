@@ -270,7 +270,7 @@ What is a "Degenerate Dimension"?
 </quiz>
 
 <quiz>
-In a star schema, how does the fact table relate to the dimension tables?
+In a Star Schema, how does the fact table relate to the dimension tables?
 - [ ] The fact table is the parent, and dimensions are children.
 - [x] The fact table is the center, linked to surrounding dimensions via foreign keys.
 - [ ] They are unrelated and queried separately.
@@ -308,7 +308,7 @@ Which of the following is an example of a "Semi-Additive" measure?
 <quiz>
 Why is 'Accumulating Snapshot' considered the rarest type of fact table?
 - [ ] It takes up too much space.
-- [ ] It replaces the star schema.
+- [ ] It replaces the Star Schema.
 - [ ] Modern databases cannot handle updates.
 - [x] It is only used for workflows with a defined start and end (like shipping).
 
