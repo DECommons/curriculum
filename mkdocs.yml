@@ -56,8 +56,9 @@ nav:
   - Welcome: 
     - "About Open Conduit": index.md
     - "Contributing": contributing.md
+    - "Lab Setup": setup.md
   - Databases and SQL:
-    - databases_and_sql/index.md
+    - "Databases and SQL": databases_and_sql/index.md
     - Set Theory:
       - "Welcome": databases_and_sql/set_theory/0_welcome.md
       - "1: defining the Set": databases_and_sql/set_theory/1_defining_the_set.md
