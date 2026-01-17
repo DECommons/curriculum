@@ -222,7 +222,7 @@ This brings us to the **dimension modeling** compromise. We don't flatten the wo
 1. **The Context (Dimensions)**: The descriptive nouns. (Customers, Products, Stores). We flatten these heavily.
 2. **The Measurement (Facts)**: The numerical verbs. (Orders, Clicks, Payments). We keep these distinct.
 
-We are about to leave the theoretical world of "Normalization vs. Denormalization" and start building. We are going to construct a specific architectural shape known as the **star schema**.
+We are about to leave the theoretical world of "Normalization vs. Denormalization" and start building. We are going to construct a specific architectural shape known as the **Star Schema**.
 
 ## Quiz
 

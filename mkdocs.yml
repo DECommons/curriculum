@@ -53,7 +53,9 @@ markdown_extensions:
       generic: true
 
 nav:
-  - Home: index.md
+  - Welcome: 
+    - "About Open Conduit": index.md
+    - "Contributing": contributing.md
   - Databases and SQL:
     - databases_and_sql/index.md
     - Set Theory:
@@ -74,6 +76,10 @@ nav:
       - "1: The Two Worlds": databases_and_sql/dimensional_modeling/1_the_two_worlds.md
       - "2: Denormalization": databases_and_sql/dimensional_modeling/2_denormalization.md
       - "3: The Context (Dimensions)": databases_and_sql/dimensional_modeling/3_the_context.md
+      - "4: The Measurement (Facts)": databases_and_sql/dimensional_modeling/4_the_measurement.md
+      - "5: The Grain (Granularity)": databases_and_sql/dimensional_modeling/5_the_grain.md
+      - "6: The Star Schema": databases_and_sql/dimensional_modeling/6_the_star_schema.md
+      - "7: The Snowflake Schema": databases_and_sql/dimensional_modeling/7_the_snowflake_schema.md
     - Structured Query Language:
       - "Welcome": databases_and_sql/structured_query_language/0_welcome.md
       - "1: The Foundation of Querying": databases_and_sql/structured_query_language/1_foundation_of_querying.md
@@ -100,3 +106,6 @@ extra_javascript:
 plugins:
   - mkdocs_quiz:
       auto_number: true
+
+copyright: >
+  Copyright &copy; 2026 Open Conduit  |  Content licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a>  |  Labs licensed under <a href="https://opensource.org/licenses/MIT">MIT</a>.
