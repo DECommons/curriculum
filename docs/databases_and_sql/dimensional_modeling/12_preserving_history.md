@@ -85,7 +85,7 @@ How we handle this drift depends entirely on the business requirements. Do we *c
 
 In the following sections, we will look at the three standard engineering patterns—Types 1, 2, and 3—to solve this. Each one represents a different trade-off between complexity and historical truth.
 
-## 11.2 SCD Type 1 (Overwrite)
+## 12.2 SCD Type 1 (Overwrite)
 In the world of data modeling, the simplest solution is often the most dangerous.
 
 **SCD Type 1** is the technical term for "doing exactly what the application database does." When a dimension attribute changes, we simply overwrite the old value with the new one. We don't keep the old version. We don't track when the change happened. We just erase the post.
