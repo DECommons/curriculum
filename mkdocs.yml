@@ -110,6 +110,7 @@ nav:
       - "2: Row vs. Column Stores": databases_and_sql/database_internals_and_optimizations/2_row_vs_column_stores.md
       - "3: The Container (File Formats)": databases_and_sql/database_internals_and_optimizations/3_the_container.md
       - "4: The B-Tree": databases_and_sql/database_internals_and_optimizations/4_the_b_tree.md
+  - Glossary: glossary.md
 
 
 extra_css:
