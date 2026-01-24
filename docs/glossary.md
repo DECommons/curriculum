@@ -109,10 +109,41 @@ A compression technique where the values are stored using the minimum number of 
 
 Bit-packing is heavily used in Columnar Formats to reduce storage footprint and I/O costs. If a column has low cardinality, Parquet can bit-pack these into just 3 bits per value, offering massive storage savings over standard 32-bit integers.
 
+#### Bitmap Index
+A database indexing technique that uses a string of bits (0s and 1s) to represent the presence or absence of a specific value across rows. Each distinct value in the indexed column has its own bit array.
+
+- **Best Use**: Columns with **Low Cardinality** (few unique values) like `Gender`, `Status`, or `IsActive`.
+- **Performance**: Extremely fast for logical operations (AND, OR, NOT). If you query `WHERE Gender = 'F' AND Active = 1`, the database simply performs a CPU-level bitwise AND operation on the two bitmaps, which is instant compared to scanning B-Trees.
+- **Limitations**: Poor performance on high-cardinality data and expensive to update (bad for write-heavy OLTP).
+
+#### Bitmask
+A pattern of bits used to select, toggle, or inspect specific bits within a binary data string using bitwise operators.
+
+Used in **User Permissions** or **State Tracking** to save space.
+- Instead of creating 8 boolean columns (`CanRead`, `CanWrite`, `CanDelete`, …) an engineer might store a single integer column `Permissions`. A bitmask is then applied to check specific rights (e..g, `IF (Permissions & 4) > 0` checks the 3rd bit).
+
+#### Bitstrings
+A sequence of bits (0s and 1s) treated as a single data unit.
+
+**Bloom Filters**: Bitstrings are the underlying structure of Bloom Filters, a probabilistic data structure used in Big Data to quickly test if an element is *definitely not* in a set (preventing expensive disk lookups).
+
+#### Bitwise Operators
+Operators that perform logic on data at the individual bit level rather than the value level.  Common operators include `AND` (`&`), `OR` (`|`), `XOR` (`^`), `NOT` (`~`), and Bit Shifts (`<<`, `>>`).
+
+#### Boolean Algebra
+The branch of algebra in which the values of the variables are the truth values **true** and **false**, usually denoted 1 and 0.
+
+The theoretical foundation of the `WHERE` clause. Understanding laws like **De Morgan's Laws** (e.g., `NOT (A OR B)` is equivalent to `(NOT A) AND (NOT B)`) is essential for simplifying complex legacy SQL queries to make them readable and performant.
+
 #### Branch Misprediction
 A performance penalty that occurs in a CPU pipeline when the processor incorrectly guesses which path of a conditional branch (like an if-then-else statement) the execution will take.
 
 This is a low-level reason why Vectorized Processing (SIMD) is faster than row-by-row loops.
+
+#### Buffer Pools
+A designated region of a database's physical memory (RAM) used to cache table and index data pages that have been read from the disk.
+
+The "Cache Hit Ratio" (percentage of reads found in the Buffer Pool vs. Disk) is a primary metric for database health. If the Buffer Pool is too small,  the system suffers from constant "Disk Thrashing" (swapping data in and out of memory), killing pipeline performance.
 
 #### Bus Matrix
 A grid-like planning document used in the Kimball data warehousing methodology. It lists business processes (fact tables) in rows and shared descriptive objects (dimension tables) in columns. Marks in the grid indicate which dimensions apply to which facts.
@@ -175,6 +206,11 @@ A primary key that consists of two or more columns. Together, these columns guar
 
 Composite keys are standard in Link Tables (Many-to-Many relationships). For example, a `StudentClasses` table might not have a unique ID; instead, the combination of `StudentID + ClassID` serves as the Composite Primary Key. In data warehousing, we often replace Composite Keys with a single "Surrogate Key" (like a hash) to simplify downstream joins.
 
+#### Concurrency
+The ability of a system to handle multiple tasks or transactions in overlapping time periods. Note that this is distinct from **parallelism** (executing strictly at the exact same instant).
+
+Managing concurrency is critical in **Airflow** or **Dbt**. If 50 separate jobs try to update the same "Summary" table at once, concurrency control (Locking) determines who wins and who waits, preventing data corruption.
+
 #### Conformed Dimensions
 A dimension table that is designed to be used across multiple fact tables. It has a consistent structure, content, and meaning regardless of where it is used.
 
@@ -184,6 +220,11 @@ This is the "glue" of a data warehouse. If the marketing team tracks Customers b
 A logical operator (AND) that results in True only if all operands are true.
 
 Used heavily in complex filtering logics. When defining data quality rules, conjunctions are used to group requirements (e.g., "The row is valid IF `email is not null AND age > 18`").
+
+#### Cost-Based Optimizer (CBO)
+The component of a database engine that generates multiple execution plans for a query, assigns a "cost" (estimate of I/O and CPU usage) to each, and selects the cheapest plan. It relies on **Statistics** (like histograms) to make these decisions.
+
+When a query suddenly becomes slow, it is often because the CBO made a bad decision due to outdated statistics. The fix is usually to run `ANALYZE TABLE` or `UPDATE STATISTICS` to give the CBO fresh data so it picks the right join type (e.g., avoiding a Nested Loop on a million rows).
 
 #### Convergence Table
 A table (often a temporary or derived table) created to ensure a dataset includes rows for all required combinations, usually to handle sparse data.
@@ -374,11 +415,25 @@ The level of detail or depth of data in a table. It answers the question, "What 
 Defining granularity is the most important step in data modeling. "Daily Sales" has a coarser grain than "Individual Transactions." Mixing granularities in the same table is a major anti-pattern that leads to aggregation errors.
 
 ## H
+#### Hash Function
+A mathematical algorithm that maps data of arbitrary size to a fixed-size string of characters (the hash value). Ideally, it is deterministic (same input = same output) and has a uniform distribution (minimizing collisions).
+
+#### Hash Join
+A join algorithm where the database builds a hash table in memory from the smaller input table (Build Phase) and then scans the larger table (Probe Phase), hashing  its join keys to check for matches in the hash table.
+
+- **The Gold Standard**: This is the most efficient join for large, unsorted datasets (common in data warehouses).
+- **Constraint**: It requires enough memory to hold the hash table of the smaller dataset. If memory runs out, it must **Spill to Disk**, drastically reducing speed.
+
 #### Hierarchies
 A relationship between attributes in a dimension where one attribute is a subset of another, creating a parent-child structure.
 Example: Year --> Quarter --> Month --> Day.
 
 Engineers must explicitly define hierarchies in OLAP cubes to enable Drill-Down functionality. Handling "Ragged Hierarchies" (where the depth varies, like an Org Chart when some managers report to the CEO and some report to VPs) is a complex modeling challenge.
+
+#### Histogram
+A statistical representation of the distribution of data in a column. In databases, it tracks how many rows fall into specific ranges (buckets) of values.
+
+Histograms tell the Optimizer  if a column is skewed. If a histogram shows that "Status = 'Pending'" is 90% of the table, the Cost-Based Optimizer nows that using an index for "Pending" is a bad idea (Full Table Scan is better), but using an index for "Completed" (10% of data) is a good idea.
 
 ## I
 #### Idempotency
@@ -394,6 +449,12 @@ Essential for fault tolerance. If a pipeline crashes halfway through and you res
 Automatic type conversion performed by the database engine when it compares values of different data types (e.g., comparing a String '100' to an integer 100).
 
 A major performance killer. If a column is an integer, but you query `WHERE col = '100'`, the database may have to convert every single row's integer to a string to do the comparison, preventing the use of indexes. Always use Explicit Casting to match the column type.
+
+#### Index Nested Loop Join
+A specific type of Nested Loop Join where the inner table is probed using an **Index** rather than a full scan. For every row in the outer table, the engine performs a quick index lookup on the inner table.
+
+- **Best For**: Joining a small dataset (e.g., 100 new orders) to a massive dataset (e.g., 10 million customers) *if* the massive dataset is indexed.
+- **Bad For**: Joining two massive datasets together (Hash Join is preferred).
 
 #### Index Scan
 A database retrieval operation where the engine reads through the entire index (or a large portion of it) to find matching rows.
@@ -475,6 +536,16 @@ In a general context, a decisive test of a hypothesis. In data engineering, it o
 
 "The One-Row-Per-User Litmus Test": Before joining a Users table, an engineer runs `SELECT user_id, COUNT(*) FROM Users GROUP BY user_id HAVING COUNT(*) > 1`. If this returns any rows, the hypothesis that "User ID is unique" is false, and the join will cause Fan-Out Duplication.
 
+#### Locking
+A mechanism to control access to data items to ensure integrity during concurrent transactions.
+- **Shared Lock (Read Lock)**: Allows others to read but not write.
+- **Exclusive Lock (Write Lock)**: Prevents others from reading or writing.
+
+- **Deadlocks**: A common failure mode in ETL. Job A locks Table X and waits for Table Y. Job B locks Table Y and waits for Table X. Both jobs hang forever until the database kills one.
+
+#### Locking Contention
+A situation where multiple transactions are trying to acquire locks on the same resource, causing processes to wait (block) and slowing down the overall system.
+
 ## M
 #### Medallion Architecture
 A data design pattern (popularized by Databricks) that organizes data quality into three distinct layers:
@@ -501,6 +572,9 @@ A primary key formed of attributes that already exist in the real world (e.g., S
 
 Natural keys are convenient but risky because they can change (e.g., a user changes their email). In data warehousing, it is standard practice to create a Surrogate Key (a random hash or auto-incrementing integer) to serve as the internal system ID while keeping the Natural Key as a regular attribute.
 
+#### Nested Loop Join
+The simplest join algorithm. It uses two loops: an outer loop iterates over every row of the first table, and an inner loop iterates over the second table to find matches. Complexity: $O(N \times M)$
+
 #### Non-Clustered Index
 A database index that is stored separately from the data rows. It contains pointers (like a book's index at the back) to the physical location of the data. A table can have many non-clustered indexes.
 
@@ -519,12 +593,20 @@ The process of organizing a database to reduce redundancy and improve data integ
 (See also 1NF, 2NF, 3NF)
 
 ## O
+#### Optimizer
+See **Cost-Based Optimizer (CBO)**.
+
 #### Ordinal Sorting
 Sorting data based on a defined position (index) rather than the semantic value of the characters.
 
 Essential for sorting categorical data that has a logical order but no alphabetical order (e.g., "Low", "Medium", "High"). If you sort these alphabetically, you get "High, Low Medium" (incorrect). Engineers must create an "ordinal" column (1, 2, 3) to sort them correctly.
 
 ## P
+#### Page Split
+An operation that occurs in a B-Tree index when a new row is inserted into a full index page. The database must create a new page and move half the rows to it.
+
+Frequent page splits (caused by inserting data with random Primary Keys, like UUIDs) fragments the index and kill write performance. This is why using sequential keys (like auto-incrementing integers or timestamps) is preferred for write-heavy clustered indexes.
+
 #### Pages
 The fixed-size blocks of memory (usually 4 KB, 8 KB, or 16 KB) that an operating system or database engine uses to read/write data from a disk.
 
@@ -534,6 +616,13 @@ This is the fundamental unit of I/O. When a database "reads a row," it actually 
 The process of dividing a large dataset into smaller, discrete chunks (pages) to be served one at a time.
 
 Critical when interacting with APIs during extraction. If you request "All Sales" from the Shopify API, it won't give you 1 million rows; it will give you Page 1 (50 rows) and a token for Page 2. The data engineer must write a loop to cycle through these pages until all data is extracted.
+
+#### Parallelism
+The simultaneous execution of multiple sub-tasks of a single larger task.
+- **Inter-query Parallelism**: Running 10 different queries at the same time.
+- **Intra-query Parallelism**: Using 10 CPUs to solve *one* massive query.
+
+Technologies like Redshift and Snowflake are built on this. A query is broken down into chunks, and 64 different nodes process their chunk in parallel. The query is only as fast as the slowest node (skew).
 
 #### Partition Pruning
 The optimization technique where the query engine analyzes the WHERE clause and skips scanning partitions that cannot possibly contain matching data.
@@ -727,6 +816,11 @@ A notorious performance issue in distributed systems (Hadoop HDFS, Spark, S3) ca
 - **The Cost**: Every file requires a metadata operation (opening, closing, listing). Reading 10,000 files of 1 KB takes significantly longer than reading 1 file of 10 MB due to the "overhead" latency outstripping the actual read time.
 - **The Fix**: Engineers use Compaction or Coalesce jobs to merge these tiny files into optimally sized blocks.
 
+#### Sort-Merge Join
+A join algorithm that first sorts both input tables on the join key and then merges them by iterating through both sorted lists simultaneously.
+
+- **Use Case**: Excellent if the data is *already* sorted (e.g., clustered by the join key) or if the output needs to be sorted. Unlike Hash Joins, it handles **Spill to Disk** gracefully, making it robust for massive joins that exceed memory limits.
+
 #### Sparse Data
 A dataset or matrix where the majority of values are zero or `NULL`.
 
@@ -739,6 +833,11 @@ In data quality/modeling, this refers to how precise or granular a rule or class
 - **Low Specificity**: "User lives in USA".
 - 
 Important when joining datasets of different grains. If one dataset has City level granularity (High Specificity) and another has State level (Low Specificity), you must aggregate the specific dataset up to the State level to join them accurately.
+
+#### Spill to Disk
+A performance degradation event where an operation (like an Hash Join or Sort) requires more RAM than is allocated. The system must temporarily write data to the hard drive (tempDB or swap) to continue processing.
+
+A query that normally takes 10 seconds might take 10 minutes if it spills to disk because disk I/O is orders of magnitude slower than RAM.
 
 #### Statement
 A complete unit of execution in a programming language or SQL.
