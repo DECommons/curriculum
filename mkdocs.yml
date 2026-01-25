@@ -115,6 +115,7 @@ nav:
       - "7: Join Algorithms": databases_and_sql/database_internals_and_optimizations/7_join_algorithms.md
       - "8: Transactions": databases_and_sql/database_internals_and_optimizations/8_transactions.md
       - "9: Locks and Blocking": databases_and_sql/database_internals_and_optimizations/9_locks_and_blocking.md
+      - "10: Database Hygiene": databases_and_sql/database_internals_and_optimizations/10_database_hygiene.md
   - Glossary: glossary.md
 
 
