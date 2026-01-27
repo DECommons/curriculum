@@ -141,7 +141,7 @@ While the data flows left-to-right, there are cross-cutting concerns that apply 
 ## 1.3 The Core Mandate: Trust and Reliability
 We have defined **who** we are (Builders) and what we build (The Value Chain). Now we must define **why** we exist.
 
-You might think our job is to "move data." That is incorrect. A script can move data. You might think our job is to "make data available." That is insufficient. A dump of raw JSON files is available, but useless.
+You might think our job is to "move data." That is incorrect. A script can move data. You might think our job is to "make data available." That is insufficient. A dump of raw JSON files is available but useless.
 
 Our job is to manufacture **trust**.
 
@@ -156,7 +156,7 @@ Imagine a pipeline that aggregates daily revenue.
     - *Result*: The CEO calls you. You fix the connection. Everyone moves on.
 - **Scenario B (Silent Failure)**: The Marketing team changes the capitalization of a campaign tag from "Winter_Sale" to "winter_sale." Your fastidious `WHERE campaign = 'Winter_Sale'` clause now filters out 40% of the revenue. The pipeline runs successfully. The dashboard updates.
     - *Result*: The dashboard shows revenue is down 40%. The CEO panics. They fire the VP of Sales. Two weeks later, they find out it was a data error.
-    - *Impact*: You have not just broken a pipeline, you have broken the **decision-making capability of the company**.
+    - *Impact*: You have not just broken a pipeline; you have broken the **decision-making capability of the company**.
 
 When a software engineer breaks the app, users can't buy things. When a data engineer breaks the data, the company flies blind.
 
@@ -171,4 +171,136 @@ To protect trust, we must treat data as a **product**, not a byproduct. Like any
 You must negotiate these three metrics with your stakeholders (the Analysts and Scientists) *before you write a single line of code*.
 
 #### 1. Freshness (Latency)
-- *The Question*: 
+- *The Question*: "How old is the data allowed to be?"
+- *The Trap*: Everyone says they want "Real-Time." They rarely need it. Real-time is expensive and complex (see module 5).
+- *The Negotiation*: "If I give you the data at 8:00 AM every morning, is that enough?" (Batch). "Do you need to see the transaction within 5 seconds of it happening?" (Streaming).
+
+#### 2. Accuracy (Correctness)
+- *The Question*: "Is the data right?"
+- *The Metrics*:
+    - **Completeness**: Did we lose any rows? (Count Source vs. Count Destination).
+    - **Uniqueness**: Do we have duplicates? (Did we count the same sale twice?).
+    - **Consistency**: Does the total revenue equal the sum of the individual line items?
+
+#### 3. Availability (Uptime)
+- *The Question*: "Can I query the data right now?"
+- *The Reality*: Even if the data is fresh and accurate, if the data warehouse is down for maintenance during the board meeting, you have failed.
+
+### The Hierarchy of Data Needs
+We can visualize this using Maslow's Hierarchy. You cannot focus on "AI/ML" (Self-Actualization) if you haven't solved "Availability" (Physiological Needs).
+
+```mermaid
+graph BT
+    A["Basement: <br/>Availability & Freshness"]
+    B["Foundation: <br/>Quality & Accuracy"]
+    C["Interface: <br/>Usability & Documentation"]
+    D["Penthouse: <br/>Advanced Analytics & ML"]
+    
+    A --> B
+    B --> C
+    C --> D
+```
+
+1. **Bottom Layer (The Basement)**: The data must be there, and it must be on time. If it's not, nothing else matters.
+2. **Second Layer (The Foundation)**: The data must be accurate. No duplicates, no silent filtering.
+3. **Third Layer (The Interface)**: The data must be easy to understand. Column names should make sense (`customer_id`, not `c_001`).
+4. **Top Layer (The Penthouse)**: Only *after* the bottom three are solid can you do Machine Learning.
+
+!!! tip "The 80/20 Rule of Reliability"
+
+    80% of data errors are caused by upstream changes (schema drift, API changes). Only 20% are actual bugs in your code. Therefore, **defensive coding**—checking the data as it enters your system—is more important than optimizing your algorithms.
+
+
+## Quiz
+
+<quiz>
+According to the 'Civil Engineer' analogy, what is the primary  responsibility of a data engineer?
+- [ ] Creating machine learning models to predict future needs.
+- [ ] Analyzing the data to find business insights.
+- [ ] Manually entering data into the database to ensure accuracy.
+- [x] Building and maintaining the infrastructure (pipes and pumps) that move the data.
+
+</quiz>
+
+<quiz>
+What is a 'Silent Failure'?
+- [ ] The pipeline crashes loudly and sends an error alert immediately.
+- [ ] The dashboard fails to load for the end user.
+- [x] The pipeline runs successfully but produces incorrect or corrupted data.
+- [ ] The database connection times out, and no data is loaded.
+
+</quiz>
+
+<quiz>
+In the Data Engineering Lifecycle, which stage is described as 'The Border Crossing,' where you interact with systems you do not own?
+- [x] Ingestion.
+- [ ] Generation.
+- [ ] Transformation.
+- [ ] Serving.
+
+</quiz>
+
+<quiz>
+Why is it often recommended to store data in a 'Data Lake' (Raw Storage) before transforming it?
+- [x] It allows you to replay history if your transformation logic has a bug.
+- [ ] It ensures the data is strictly validated against a schema immediately.
+- [ ] It is faster for the CEO to query raw JSON files directly.
+- [ ] It reduces the storage cost to zero.
+
+</quiz>
+
+<quiz>
+Which SLA metric answers the question, 'How old is the data allowed to be?'
+- [ ] Accuracy.
+- [x] Freshness.
+- [ ] Availability.
+- [ ] Completeness.
+
+</quiz>
+
+<quiz>
+Which role is primarily responsible for 'The Meaning' of the data and translating it for business stakeholders?
+- [ ] Data Scientist
+- [x] Data Analyst
+- [ ] Database Administrator
+- [ ] Data Engineer
+
+</quiz>
+
+<quiz>
+In the 'Physics of Information,' what constraint is associated with the 'Volume' of data?
+- [ ] Visibility.
+- [ ] Entropy and chaos.
+- [ ] Momentum.
+- [x] Mass and Inertia.
+
+</quiz>
+
+<quiz>
+What is the 'Great Trap' regarding Real-time data?
+- [x] It is often requested but rarely needed.
+- [ ] It is too slow for modern businesses.
+- [ ] It cannot be done with current technology.
+- [ ] It requires manual intervention.
+
+</quiz>
+
+<quiz>
+According to the 'Hierarchy of Data Needs,' what must be solved before you can attempt Machine Learning?
+- [ ] User interface design.
+- [x] Availability and freshness.
+- [ ] Predictive analytics.
+- [ ] Reverse ETL.
+
+</quiz>
+
+<quiz>
+What distinguishes modern data engineering from traditional database administrators (DBA)?
+- [ ] Data engineers do not use SQL.
+- [ ] Data engineers only work with small datasets.
+- [x] Data engineers focus on 'Infrastructure as Code.'
+- [ ] Data engineers do not care about uptime.
+
+</quiz>
+
+<!-- mkdocs-quiz results -->
