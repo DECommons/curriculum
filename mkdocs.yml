@@ -75,6 +75,11 @@ nav:
       - "11: The Serving Layer": fundamentals/data_engineering_101/11_the_serving_layer.md
     - Systems Architecture:
       - "Welcome": fundamentals/systems_architecture/0_welcome.md
+      - "1: The Von Neumann Machine": fundamentals/systems_architecture/1_the_von_neumann_machine.md
+      - "2: The Memory Hierarchy": fundamentals/systems_architecture/2_the_memory_hierarchy.md
+      - "3: The Physics of Storage": fundamentals/systems_architecture/3_the_physics_of_storage.md
+      - "4: Data Representations": fundamentals/systems_architecture/4_data_representation.md
+      - "5: The Kernel and User Space": fundamentals/systems_architecture/5_the_kernel_and_user_space.md
     - Linux:
       - "Welcome": fundamentals/linux/0_welcome.md
     - Git:
