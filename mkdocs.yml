@@ -58,6 +58,7 @@ nav:
     - "About OpenConduit": index.md
     - "Contributing": contributing.md
     - "Lab Setup": setup.md
+    - "Roadmap": roadmap.md
   - Fundamentals:
     - "Fundamentals": fundamentals/index.md
     - Data Engineering 101:
@@ -156,6 +157,9 @@ extra_javascript:
 plugins:
   - mkdocs_quiz:
       auto_number: true
+  - panzoom:
+      include_selectors:
+        - "img"
 
 copyright: >
   Copyright &copy; 2026 OpenConduit  |  Content licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a>  |  Labs licensed under <a href="https://opensource.org/licenses/MIT">MIT</a>

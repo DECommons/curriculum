@@ -34,25 +34,7 @@ Here is the mechanical sequence of events, often called a **Trap** or a **Softwa
 4. **The Execution**: The kernel looks at the registers, sees you want to `write`, verifies you have permission to write to that location, and dispatches the work to the driver.
 5. **The Return**: The kernel puts the result (success/failure) into a register, switches back to Ring 3, and hands control back to your code.
 
-```mermaid
-sequenceDiagram
-    participant App as User Application (Ring 3)
-    participant Lib as Standard Library (libc)
-    participant Kernel as OS Kernel (Ring 0)
-    participant HW as Hardware (Disk/Screen)
-
-    Note over App: "I want to save data"
-    App->>Lib: writes()
-    Lib->>Lib: Load registers with args
-    Lib->>Kernel: SYSCALL instruction
-    Note over Kernel: Context Switch: User -> Kernel
-    Kernel->>Kernel: Validate Permissions
-    Kernel->>HW: Write data
-    HW-->>Kernel: Acknowledge
-    Note over Kernel: Context Switch: Kernel -> User
-    Kernel-->>Lib: Return 0 (Success)
-    Lib-->>App: Return
-```
+![sequence diagram](./images/image_5_1_1.svg)
 
 !!! note "We rarely write Syscalls directly"
 
@@ -94,28 +76,7 @@ Every time the CPU switches from User Mode to Kernel Mode, it has to save the st
 ### Visualizing the Overhead
 Let's look at the flow of a chatty application versus a buffered one.
 
-```mermaid
-graph TD
-    subgraph "Chatty Application"
-    A1[Row 1] -->|Syscall| K1[Kernel]
-    K1 -->|Return| A1
-    A2[Row 2] -->|Syscall| K2[Kernel]
-    K2 -->|Return| A2
-    A3[Row 3] -->|Syscall| K3[Kernel]
-    end
-
-    subgraph "Buffered Application"
-    B1[Row 1] --> Buffer
-    B2[Row 2] --> Buffer
-    B3[Row 3] --> Buffer
-    Buffer[User Space Buffer] -->|One Giant Syscall| BK[Kernel]
-    end
-
-    style K1 fill:#f96,stroke:#333,stroke-width:2px
-    style K2 fill:#f96,stroke:#333,stroke-width:2px
-    style K3 fill:#f96,stroke:#333,stroke-width:2px
-    style BK fill:#f96,stroke:#333,stroke-width:4px
-```
+![sequence diagram](./images/image_5_1_2.svg)
 
 In the "Chatty" version, the orange boxes represent the expensive mode switch. In the "Buffered" version, we stay in the green User Space (which is practically free) for as long as possible.
 
@@ -192,23 +153,7 @@ This voltage spike forces the CPU to physically stop executing the current instr
 
 This is why your mouse moves smoothly even if your code is calculating PI to the billionth digit. The mouse hardware is spamming the CPU with interrupts ("I moved! I moved!"), and the CPU is pausing your math thousands of times a second to update the *cursor* position.
 
-```mermaid
-sequenceDiagram
-    participant CPU
-    participant NIC as Network Card
-    participant RAM
-    participant OS as Kernel (Driver)
-
-    Note over CPU: Executing User Code...
-    NIC->>NIC: Packet Arrives
-    NIC->>CPU: ⚡ Send Interrupt Signal (IRQ)
-    Note over CPU: FREEZE! Save Context.
-    CPU->>OS: Jump to Interrupt Handler
-    OS->>NIC: Read Data
-    NIC-->>RAM: DMA Transfer (Data Copy)
-    OS->>CPU: Restore Context
-    Note over CPU: Resume User Code...
-```
+![sequence diagram](./images/image_5_3.svg)
 
 ### Signals (The Tap on the Shoulder)
 While **Interrupts** are how hardware talks to the kernel, **Signals** are how the kernel talks to your process (User Space).
